@@ -2,43 +2,44 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Event;
 use Mockery;
+use Tests\TestCase;
 
 class FriendshipsEventsTest extends TestCase
 {
     // use DatabaseTransactions;
-    
-    public function setUp()
+
+    public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->sender    = createUser();
         $this->recipient = createUser();
     }
-  
-    public function tearDown()
+
+    public function tearDown(): void
     {
         Mockery::close();
     }
-  
+
     /** @test */
     public function friend_request_is_sent()
     {
         Event::shouldReceive('fire')->once()->withArgs(['friendships.sent', Mockery::any()]);
-        
+
         $this->sender->befriend($this->recipient);
     }
-  
+
     /** @test */
     public function friend_request_is_accepted()
     {
         $this->sender->befriend($this->recipient);
         Event::shouldReceive('fire')->once()->withArgs(['friendships.accepted', Mockery::any()]);
-        
+
         $this->recipient->acceptFriendRequest($this->sender);
     }
 
@@ -47,7 +48,7 @@ class FriendshipsEventsTest extends TestCase
     {
         $this->sender->befriend($this->recipient);
         Event::shouldReceive('fire')->once()->withArgs(['friendships.denied', Mockery::any()]);
-        
+
         $this->recipient->denyFriendRequest($this->sender);
     }
 
@@ -57,10 +58,10 @@ class FriendshipsEventsTest extends TestCase
         $this->sender->befriend($this->recipient);
         $this->recipient->acceptFriendRequest($this->sender);
         Event::shouldReceive('fire')->once()->withArgs(['friendships.blocked', Mockery::any()]);
-        
+
         $this->recipient->blockFriend($this->sender);
     }
-  
+
     /** @test */
     public function friend_is_unblocked()
     {
@@ -68,17 +69,17 @@ class FriendshipsEventsTest extends TestCase
         $this->recipient->acceptFriendRequest($this->sender);
         $this->recipient->blockFriend($this->sender);
         Event::shouldReceive('fire')->once()->withArgs(['friendships.unblocked', Mockery::any()]);
-        
+
         $this->recipient->unblockFriend($this->sender);
     }
-  
+
     /** @test */
     public function friendship_is_cancelled()
     {
         $this->sender->befriend($this->recipient);
         $this->recipient->acceptFriendRequest($this->sender);
         Event::shouldReceive('fire')->once()->withArgs(['friendships.cancelled', Mockery::any()]);
-        
+
         $this->recipient->unfriend($this->sender);
     }
 }
