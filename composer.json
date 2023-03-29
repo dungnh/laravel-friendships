@@ -21,13 +21,13 @@
         }
     },
     "require": {
-        "php": ">=7.2.0"
+        "php": "^7.3|^8.0|^8.1|^8.2"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.9",
+        "fakerphp/faker": "^1.19",
         "mockery/mockery": "^1.4",
-        "phpunit/phpunit": "^8.5",
-        "laravel/laravel": "^7.0",
+        "phpunit/phpunit": "^8.5|^9.5|^10.0",
+        "laravel/laravel": "^10.0",
         "doctrine/dbal": "^2.10"
     },
     "autoload": {
