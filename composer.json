@@ -1,6 +1,6 @@
 {
     "name": "coliving/laravel-friendships",
-    "description": "This package gives Eloquent models the ability to manage their friendships. Forked from hootlex/laravel-friendships to update for supporting L7",
+    "description": "This package gives Eloquent models the ability to manage their friendships. Forked from hootlex/laravel-friendships to update for supporting L11",
     "keywords": ["laravel", "friendships", "friend-system", "friends", "eloquent"],
     "license": "MIT",
     "authors": [
@@ -21,13 +21,13 @@
         }
     },
     "require": {
-        "php": "^7.3|^8.0|^8.1|^8.2"
+        "php": "^7.3|^8.0|^8.1|^8.2|^8.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.19",
         "mockery/mockery": "^1.4",
-        "phpunit/phpunit": "^8.5|^9.5|^10.0",
-        "laravel/laravel": "^10.0",
+        "phpunit/phpunit": "^8.5|^9.5|^10.0|^11.0",
+        "laravel/laravel": "^10.0|^11.0",
         "doctrine/dbal": "^2.10"
     },
     "autoload": {
